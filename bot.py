@@ -7,6 +7,7 @@ Created on Mon May  4 15:22:27 2020
 import sys
 sys.path.append(r"C:\Users\Ian\AnacondaProjects\GitHub\USAJobs")
 
+from urllib.parse import quote_plus
 
 
 import praw
@@ -23,6 +24,11 @@ reddit_bot = praw.Reddit(client_id = config['clientId'],
                          user_agent = 'computer:testBot:v0.1 (by u/iaalaughlin)',
                          username = config['user'])
     
-    
-reddit_bot.login(config.user, config.password)
+subreddit = reddit_bot.subreddit("EmergencyManagement")
+for submission in subreddit.stream.submissions():
+    if re.search(r'(Jobs Roundup Thread)', submission.title, re.IGNORECASE):
+        print(submission.title)
+
+reply_template = '[let me google that for you](https://lmgtfy.com/q={})'
+url_title = quote_plus()
 
