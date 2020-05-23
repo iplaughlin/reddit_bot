@@ -17,17 +17,22 @@ import os
 #import your secrets file
 from config_file import config
 #%%
+reply_text = 'test'
+reddit_bot = praw.Reddit('testbot')
 
-reddit_bot = praw.Reddit(client_id = config['clientId'],
+
+
+client_id = config['clientId'],
                          client_secret = config['secret'], 
-                         password = config['password'], 
-                         user_agent = 'computer:testBot:v0.1 (by u/iaalaughlin)',
-                         username = config['user'])
+                         #password = config['password'], 
+                         user_agent = 'testBot',)
+                         #username = config['user'])
     
 subreddit = reddit_bot.subreddit("EmergencyManagement")
 for submission in subreddit.stream.submissions():
     if re.search(r'(Jobs Roundup Thread)', submission.title, re.IGNORECASE):
-        print(submission.title)
+        if submission.title == 'May 2020 Jobs Roundup Thread':
+            submission.reply(reply_text)
 
 reply_template = '[let me google that for you](https://lmgtfy.com/q={})'
 url_title = quote_plus()
