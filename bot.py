@@ -12,12 +12,16 @@ import os
 import datetime
 
 #%%
+
+def post_to_reddit(bot_to_use, title = '', posting_text = '')
+
+
 today = datetime.datetime.today()
 month = today.strftime('%B')
 year = today.year
 
 title = f'{month} {year} Jobs Roundup Thread'
-posting_test = """Please put each new job posting in a reply to the top-level post (i.e., this one);
+posting_text = """Please put each new job posting in a reply to the top-level post (i.e., this one);
  include a link; say where the job is located; and provide an optional short summary of the duties and pay scale (if known).
  One job per response, please, so we can clearly thread any subsequent discussion.
 All sectors are welcome; most of my own postings are likely to be in my own sector, higher education.
