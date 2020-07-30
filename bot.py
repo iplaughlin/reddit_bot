@@ -11,12 +11,16 @@ import praw
 def submit_to_reddit(bot_to_use, sub_to_post_to, title = '', posting_text = ''):
     reddit_bot = praw.Reddit(bot_to_use)
     subreddit = reddit_bot.subreddit(sub_to_post_to)
-    subreddit.submit(title, selftext = posting_text)
     for item in subreddit.new(limit = 5):
         if item.title == title:
             return item.url
         else:
-            return False
+            subreddit.submit(title, selftext = posting_text)
+            for item in subreddit.new(limit = 5):
+                if item.title == title:
+                    return item.url
+                else:
+                    return False
 
 def post_to_reddit(bot_to_use, submission_url, posting_text):
     reddit_bot = praw.Reddit(bot_to_use)
